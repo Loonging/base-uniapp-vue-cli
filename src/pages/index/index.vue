@@ -8,19 +8,19 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
+export default {
+  data() {
+    return {
+      title: 'Hello'
+    }
+  },
+  onLoad() {
 
-		},
-		methods: {
+  },
+  methods: {
 
-		}
-	}
+  }
+}
 </script>
 
 <style>
