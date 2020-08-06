@@ -8,6 +8,7 @@
         {{title}}
       </text>
     </view>
+    <u-button>月落</u-button>
   </view>
 </template>
 
@@ -20,6 +21,9 @@ export default {
   },
   onLoad() {
 
+  },
+  onShow() {
+    console.log(this.$router)
   },
   methods: {
 

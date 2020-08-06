@@ -63,6 +63,11 @@ module.exports = {
           minRatio: 0.99
         })
       ]
+      config.optimization.minimizer[0].options.terserOptions.compress.warnings = false
+      // eslint-disable-next-line camelcase
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger = true
+      config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = ['console.log']
     }
   }
 }
