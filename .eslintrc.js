@@ -56,20 +56,82 @@ module.exports = {
         allowTemplateLiterals: true
       }
     ], // 只允许单引号
+    'vue/singleline-html-element-content-newline': 2,
+    'vue/multiline-html-element-content-newline': 0,
+    'vue/html-indent': [2, 2, {
+      'attribute': 1,
+      'baseIndent': 1,
+      'closeBracket': 1,
+      'alignAttributesVertically': true,
+      'ignores': []
+    }],
+    'vue/html-closing-bracket-newline': 0,
+    'vue/html-quotes': [2, 'double', { 'avoidEscape': false }],
+    'vue/name-property-casing': ['error', 'PascalCase'],
+    'vue/no-async-in-computed-properties': 2,
+    'vue/no-dupe-keys': 2,
+    'vue/no-reserved-keys': 2,
+    'vue/no-duplicate-attributes': [2, {
+      'allowCoexistClass': true,
+      'allowCoexistStyle': true
+    }],
+    'vue/prop-name-casing': ['error', 'camelCase'],
+    'vue/require-prop-types': 'error',
+    'vue/require-v-for-key': 2,
+    'vue/no-use-v-if-with-v-for': [2, {
+      'allowUsingIterationVar': false
+    }],
+    'vue/component-name-in-template-casing': [2, 'kebab-case', {
+      'registeredComponentsOnly': false,
+      'ignores': []
+    }],
+    'vue/order-in-components': [2, {
+      'order': [
+        'el',
+        'name',
+        'parent',
+        'functional',
+        ['delimiters', 'comments'],
+        ['components', 'directives', 'filters'],
+        'extends',
+        'mixins',
+        'inheritAttrs',
+        'model',
+        ['props', 'propsData'],
+        'data',
+        'computed',
+        'watch',
+        'LIFECYCLE_HOOKS',
+        'methods',
+        ['template', 'render'],
+        'renderError'
+      ]
+    }],
     'vue/max-attributes-per-line': [
       2,
       {
-        singleline: 10,
+        singleline: 1,
         multiline: {
-          max: 2,
+          max: 1,
           allowFirstLine: false
         }
       }
     ],
-    'vue/singleline-html-element-content-newline': 'off',
-    'vue/multiline-html-element-content-newline': 'off',
-    'vue/html-closing-bracket-newline': 'off',
-    'vue/name-property-casing': ['error', 'PascalCase'],
+    'vue/attributes-order': [2, {
+      'order': [
+        'DEFINITION',
+        'LIST_RENDERING',
+        'CONDITIONALS',
+        'RENDER_MODIFIERS',
+        'GLOBAL',
+        'UNIQUE',
+        'TWO_WAY_BINDING',
+        'OTHER_DIRECTIVES',
+        'OTHER_ATTR',
+        'EVENTS',
+        'CONTENT'
+      ]
+    }],
     'accessor-pairs': 2,
     'arrow-spacing': [
       2,
