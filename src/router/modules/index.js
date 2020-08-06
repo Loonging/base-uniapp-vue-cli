@@ -1,10 +1,10 @@
+const files = require.context('.', false, /\.js$/)
+const modules = []
 
-const index = [{
-  path: '/pages/index/index',
-  aliasPath: '/',
-  name: 'index',
-  meta: {
-    title: '首页'
-  }
-}]
-export default index
+files.keys().forEach(key => {
+  if (key === './index.js') return
+  const item = files(key).default
+  modules.push(...item)
+})
+
+export default modules

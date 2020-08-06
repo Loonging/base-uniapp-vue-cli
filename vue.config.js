@@ -1,30 +1,8 @@
-// const resolve = (dir) => require('path').join(__dirname, dir)
+const resolve = (dir) => require('path').join(__dirname, dir)
 const PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
 const BrotliPlugin = require('brotli-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const zopfli = require('@gfx/zopfli')
-
-/* let plugins = []
-if (PROD) {
-  const compressionTest = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i
-  plugins = [
-    new CompressionPlugin({
-      algorithm(input, compressionOptions, callback) {
-        return zopfli.gzip(input, compressionOptions, callback)
-      },
-      compressionOptions: {
-        numiterations: 15
-      },
-      minRatio: 0.99,
-      test: compressionTest
-    }),
-    new BrotliPlugin({
-      test: compressionTest,
-      minRatio: 0.99
-    })
-  ]
-
-} */
 
 module.exports = {
   devServer: {
@@ -41,6 +19,7 @@ module.exports = {
       }
     }
   },
+  transpileDependencies: ['uni-simple-router'],
   lintOnSave: process.env.NODE_ENV !== 'production',
   runtimeCompiler: true,
   productionSourceMap: !PROD,
@@ -69,5 +48,15 @@ module.exports = {
       config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger = true
       config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = ['console.log']
     }
+  },
+  chainWebpack: (config) => {
+    config.plugins.delete('prefetch').delete('preload')
+    config.resolve.symlinks(true)
+    config.resolve.alias
+      .set('@', resolve('src'))
+      .set('@api', resolve('src/api'))
+      .set('@utils', resolve('src/utils'))
+      .set('@components', resolve('src/components'))
+    config.node.set('__dirname', true).set('__filename', true)
   }
 }

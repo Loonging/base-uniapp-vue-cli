@@ -8,25 +8,43 @@
         {{title}}
       </text>
     </view>
-    <u-button>月落</u-button>
+    <u-button
+      type="primary"
+      @click="handleButton">
+      前往个人中心
+    </u-button>
+    <view>
+      <h2>{{mock.title}}</h2>
+      <ul>
+        <li
+          v-for="(item,index) in mock.middle"
+          :key="index">
+          设备状态： {{item.name}}
+          显示值：{{item.value}}
+        </li>
+      </ul>
+    </view>
   </view>
 </template>
 
 <script>
+import { getMock } from '@api/common'
 export default {
   data() {
     return {
-      title: 'Hello'
+      title: 'Hello',
+      mock: {}
     }
   },
-  onLoad() {
-
-  },
   onShow() {
-    console.log(this.$router)
+    getMock().then(res => {
+      this.mock = res.data
+    })
   },
   methods: {
-
+    handleButton() {
+      this.$router.push({ name: 'me' })
+    }
   }
 }
 </script>
