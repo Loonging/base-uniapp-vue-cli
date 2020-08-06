@@ -6,13 +6,13 @@ import { RouterMount } from 'uni-simple-router'
 import uView from 'uview-ui'
 
 Vue.config.productionTip = false
+Vue.use(router)
 Vue.use(uView)
 App.mpType = 'app'
 
 const app = new Vue({
   ...App,
-  store,
-  router
+  store
 })
 // #ifdef H5
 RouterMount(app, '#app')

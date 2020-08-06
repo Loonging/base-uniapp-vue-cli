@@ -37,13 +37,14 @@ export default {
     }
   },
   onShow() {
+    console.log(this.$Router)
     getMock().then(res => {
       this.mock = res.data
     })
   },
   methods: {
     handleButton() {
-      this.$router.push({ name: 'me' })
+      this.$Router.push({ name: 'me' })
     }
   }
 }

@@ -4,7 +4,7 @@
     <u-button
       type="primary"
       @click="handleButton">
-      前往个人中心
+      登录成功，返回首页
     </u-button>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     handleButton() {
-      this.$router.push({ name: 'index' })
+      this.$Router.push({ name: 'index' })
     }
   }
 }
