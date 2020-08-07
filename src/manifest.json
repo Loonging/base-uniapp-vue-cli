@@ -1,7 +1,7 @@
 {
-	"name": "",
+	"name": "base-uniapp",
 	"appid": "",
-	"description": "",
+	"description": "@vue-cli 创建的基础架构",
 	"versionName": "1.0.0",
 	"versionCode": "100",
 	"transformPx": false,
@@ -54,10 +54,14 @@
 
 	},
 	"mp-weixin": { /* 微信小程序特有相关 */
-		"appid": "",
-		"setting": {
-			"urlCheck": false
-		},
+    "appid": "", 
+    "libVersion": "2.12.0",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "postcss": true,
+      "minified": true
+    },
 		"usingComponents": true
 	},
 	"mp-alipay" : {
