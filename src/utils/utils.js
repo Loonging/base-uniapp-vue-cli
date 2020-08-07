@@ -1,38 +1,60 @@
 /**
  * 函数节流（执行第一次进入定时器中的函数）
- * @param fn 需要进行节流操作的事件函数
- * @param interval 间隔时间
- * @returns {Function}
+ * @param func 执行函数
+ * @param wait 间隔时间
+ * @param options 立即执行
+ * options中  leading：false 表示禁用第一次执行 trailing: false 表示禁用停止触发的回调
  */
-function throttle(fn, interval) {
-  let enterTime = 0 // 触发的时间
-  const gapTime = interval || 1000 // 间隔时间，如果interval不传，则默认500ms
-  return function () {
-    const context = this
-    const backTime = new Date() // 第一次函数return即触发的时间
-    if (backTime - enterTime > gapTime) {
-      fn.call(context, arguments[0]) // arguments[0]是事件处理函数默认事件参数event call绑定当前page对象
-      enterTime = backTime // 赋值给第一次触发的时间，这样就保存了第二次触发的时间
+function throttle(fn, wait = 500, options = {}) {
+  let timer = null
+  let previous = 0
+  const throttled = function() {
+    const now = +new Date()
+    // remaining 不触发下一次函数的剩余时间
+    if (!previous && options.leading === false) previous = now
+    const remaining = wait - (now - previous)
+    if (remaining < 0) {
+      if (timer) {
+        clearTimeout(timer)
+        timer = null
+      }
+      previous = now
+      fn.apply(this, arguments)
+    } else if (!timer && options.trailing !== false) {
+      timer = setTimeout(() => {
+        previous = options.leading === false ? 0 : new Date().getTime()
+        timer = null
+        fn.apply(this, arguments)
+      }, remaining)
     }
   }
+  return throttled
 }
 
 /**
  * 函数防抖（执行最后一次进入定时器中的函数）
- * @param fn 需要进行防抖操作的事件函数
- * @param interval 间隔时间
- * @returns {Function}
+ * @param func 执行函数
+ * @param wait 间隔时间
+ * @param immediate 立即执行
  */
-function debounce(fn, interval) {
-  let timer
-  const gapTime = interval || 800 // 间隔时间，如果interval不传，则默认1000ms
-  return function () {
-    clearTimeout(timer)
-    const context = this
-    const args = arguments[0] // 保存此处的arguments，因为setTimeout是全局的，arguments无法在回调函数中获取，此处为闭包。
-    timer = setTimeout(function () {
-      fn.call(context, args) // args是事件处理函数默认事件参数event  call绑定当前page对象
-    }, gapTime)
+function debounce(fn, wait = 500, immediate) {
+  let timer = null
+  return function() {
+    if (timer) clearTimeout(timer)
+    if (immediate) {
+      // 如果已经执行过，不再执行
+      const callNow = !timer
+      timer = setTimeout(() => {
+        timer = null
+      }, wait)
+      if (callNow) {
+        fn.apply(this, arguments)
+      }
+    } else {
+      timer = setTimeout(() => {
+        fn.apply(this, arguments)
+      }, wait)
+    }
   }
 }
 /**
